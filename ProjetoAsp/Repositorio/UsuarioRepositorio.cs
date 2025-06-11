@@ -1,12 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoAsp.Models;
 using System.Data;
+
 namespace ProjetoAsp.Repositorio
 {
-    public class UsuarioRepositorio
-    {
-        namespace Projeto1.Repositorio
-    {
         // Define a classe UsuarioRepositorio, responsável por operações de acesso a dados para a entidade Usuario.
         public class UsuarioRepositorio(IConfiguration configuration)
         {
@@ -89,5 +86,5 @@ namespace ProjetoAsp.Repositorio
 
         }
     }
-}
-}
+
+

@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoAsp.Models;
 using System.Data;
-namespace Projeto1.Repositorio
+namespace ProjetoAsp.Repositorio
 {
     // Define a classe UsuarioRepositorio, responsável por operações de acesso a dados para a entidade Usuario.
     public class ProdutoRepositorio(IConfiguration configuration)
@@ -23,7 +23,7 @@ namespace Projeto1.Repositorio
                 /* Cria um novo comando SQL para inserir dados na tabela 'Usuario'. Os valores para Nome, Email e Senha são passados como parâmetros
                  (@Nome, @Email, @Senha) para evitar SQL Injection.*/
 
-                MySqlCommand cmd = new("INSERT INTO Usuario (Nome, Descricao, Preco, Quant) VALUES (@Nome, @Descricao, @Preco, @Quant)", conexao);
+                MySqlCommand cmd = new("INSERT INTO tbProduct (Nome, Descricao, Preco, Quant) VALUES (@Nome, @Descricao, @Preco, @Quant)", conexao);
                 // Adiciona um parâmetro ao comando SQL para o campo 'Nome', utilizando o valor da propriedade 'Nome' do objeto 'usuario'.
                 cmd.Parameters.AddWithValue("@Nome", produto.Nome);
                 // Adiciona um parâmetro ao comando SQL para o campo 'Email', utilizando o valor da propriedade 'Email' do objeto 'usuario'.
