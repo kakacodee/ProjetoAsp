@@ -31,7 +31,7 @@ namespace ProjetoAsp.Controllers
 
             // Verifica se um usuário foi encontrado for diferente de vazio e se a senha fornecida corresponde à senha do usuário encontrado.
 
-            if (usuario != null && usuario.Senha == senha)
+            if (usuario != null && usuario.Email == email && usuario.Senha == senha)
             {
                 // Autenticação bem-sucedida
                 // Redireciona o usuário para a action "Index" do Controller "Cliente".

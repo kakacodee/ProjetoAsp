@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using ProjetoAsp.Models;
 using System.Data;
 namespace ProjetoAsp.Repositorio
@@ -37,7 +38,7 @@ namespace ProjetoAsp.Repositorio
                 conexao.Close();
             }
         }
-        public Produto ObterProduto(string Nome)
+        public Produto ObterProduto(int Id)
         {
             // Cria uma nova instância da conexão MySQL dentro de um bloco 'using'.
             using (var conexao = new MySqlConnection(_conexaoMySQL))
@@ -46,23 +47,29 @@ namespace ProjetoAsp.Repositorio
                 conexao.Open();
 
                 // Cria um novo comando SQL para selecionar todos os campos da tabela 'Usuario' onde o campo 'Email' corresponde ao parâmetro fornecido.
-                MySqlCommand cmd = new("SELECT * FROM tbProduct WHERE Nome = @Nome", conexao);
+                MySqlCommand cmd = new("SELECT * FROM tbProduct WHERE Id = @Id", conexao);
 
                 // Adiciona um parâmetro ao comando SQL para o campo 'Email', especificando o tipo como VarChar e utilizando o valor do parâmetro 'email'.
-                cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = Nome;
+                cmd.Parameters.AddWithValue("@Id", Id);
 
                 // Executa o comando SQL SELECT e obtém um leitor de dados (MySqlDataReader). O CommandBehavior.CloseConnection garante que a conexão
                 // será fechada automaticamente quando o leitor for fechado.
-                using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                {
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+                Produto produto = new Produto();
+
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                
 
                     // Inicializa uma variável 'usuario' como null. Ela será preenchida se um usuário for encontrado.
 
-                    Produto produto = null;
+                    
 
                     // Lê a próxima linha do resultado da consulta. Retorna true se houver uma linha e false caso contrário.
 
-                    if (dr.Read())
+                    while (dr.Read())
                     {
                         // Cria uma nova instância do objeto 'Usuario'.
                         produto = new Produto
@@ -81,7 +88,7 @@ namespace ProjetoAsp.Repositorio
                     /* Retorna o objeto 'usuario'. Se nenhum usuário foi encontrado com o email fornecido, a variável 'usuario'
                      permanecerá null e será retornado.*/
                     return produto;
-                }
+                
             }
         }
 
