@@ -92,5 +92,51 @@ namespace ProjetoAsp.Repositorio
             }
         }
 
+
+        // Método para listar todos os clientes do banco de dados
+        public IEnumerable<Produto> TodosOsProdutos()
+        {
+            // Cria uma nova lista para armazenar os objetos Cliente
+            List<Produto> TodosOsProdutos = new List<Produto>();
+
+            // Bloco using para garantir que a conexão seja fechada e os recursos liberados após o uso
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                // Abre a conexão com o banco de dados MySQL
+                conexao.Open();
+                // Cria um novo comando SQL para selecionar todos os registros da tabela 'cliente'
+                MySqlCommand cmd = new MySqlCommand("SELECT * from tbProduct", conexao);
+
+                // Cria um adaptador de dados para preencher um DataTable com os resultados da consulta
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                // Cria um novo DataTable
+                DataTable dt = new DataTable();
+                // metodo fill- Preenche o DataTable com os dados retornados pela consulta
+                da.Fill(dt);
+                // Fecha explicitamente a conexão com o banco de dados 
+                conexao.Close();
+
+                // interage sobre cada linha (DataRow) do DataTable
+                foreach (DataRow dr in dt.Rows)
+                {
+                    // Cria um novo objeto Cliente e preenche suas propriedades com os valores da linha atual
+                    TodosOsProdutos.Add(
+                                new Produto
+                                {
+                                    Id = Convert.ToInt32(dr["IdProd"]), // Converte o valor da coluna "codigo" para inteiro
+                                    Nome = dr["Nome"].ToString(),
+                                    // Lê o valor da coluna "Email" da linha atual do resultado, converte para string e atribui à propriedade 'Email' do objeto 'usuario'.
+                                    Descricao = dr["Descricao"].ToString(),
+                                    // Lê o valor da coluna "Senha" da linha atual do resultado, converte para string e atribui à propriedade 'Senha' do objeto 'usuario'.
+                                    Preco = Convert.ToDecimal(dr["Preco"]),
+                                    quantidade = Convert.ToInt32(dr["Quant"])
+                                });
+                }
+                // Retorna a lista de todos os clientes
+                return TodosOsProdutos;
+            }
+        }
+
+
     }
 }

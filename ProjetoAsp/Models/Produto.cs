@@ -1,4 +1,6 @@
-﻿namespace ProjetoAsp.Models
+﻿using MySqlX.XDevAPI;
+
+namespace ProjetoAsp.Models
 {
     public class Produto
     {
@@ -7,6 +9,7 @@
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
         public decimal quantidade { get; set; }
+        public List<Produto>? TodosOsProdutos { get; set; }
 
     }
 }

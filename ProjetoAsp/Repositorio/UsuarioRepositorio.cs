@@ -68,7 +68,7 @@ namespace ProjetoAsp.Repositorio
                             usuario = new Usuario
                             {
                                 // Lê o valor da coluna "Id" da linha atual do resultado, converte para inteiro e atribui à propriedade 'Id' do objeto 'usuario'.
-                                Id = Convert.ToInt32(dr["Id"]),
+                                Id = Convert.ToInt32(dr["IdUser"]),
                                 // Lê o valor da coluna "Nome" da linha atual do resultado, converte para string e atribui à propriedade 'Nome' do objeto 'usuario'.
                                 Nome = dr["Nome"].ToString(),
                                 // Lê o valor da coluna "Email" da linha atual do resultado, converte para string e atribui à propriedade 'Email' do objeto 'usuario'.

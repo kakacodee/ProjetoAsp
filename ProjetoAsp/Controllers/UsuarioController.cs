@@ -36,7 +36,7 @@ namespace ProjetoAsp.Controllers
                 // Autenticação bem-sucedida
                 // Redireciona o usuário para a action "Index" do Controller "Cliente".
 
-                return RedirectToAction("Cliente", "Cliente");
+                return RedirectToAction("Index", "Produto");
             }
 
             /* Se a autenticação falhar (usuário não encontrado ou senha incorreta):

@@ -7,6 +7,11 @@ namespace ProjetoAsp.Controllers
     public class ProdutoController : Controller
     {
         private readonly ProdutoRepositorio _produtoRepositorio;
+        public ProdutoController(ProdutoRepositorio produtoRepositorio)
+        {
+            _produtoRepositorio = produtoRepositorio;
+
+        }
         public IActionResult Index()
         {
             
@@ -20,16 +25,16 @@ namespace ProjetoAsp.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChecarProdutos(string Nome, string Descricao)
+        public IActionResult ChecarProdutos(int Id)
         {
             /* Chama o método ObterUsuario do _usuarioRepositorio, passando o email fornecido pelo usuário.
             Isso buscará um usuário no banco de dados com o email correspondente.*/
 
-            var produto = _produtoRepositorio.ObterProduto(Nome);
+            var produto = _produtoRepositorio.ObterProduto(Id);
 
             // Verifica se um usuário foi encontrado for diferente de vazio e se a senha fornecida corresponde à senha do usuário encontrado.
 
-            if (produto != null && produto.Nome == Nome)
+            if (produto != null && produto.Id == Id)
             {
                 // Autenticação bem-sucedida
                 // Redireciona o usuário para a action "Index" do Controller "Cliente".
@@ -69,7 +74,7 @@ namespace ProjetoAsp.Controllers
 
                 /* Redireciona o usuário para a action "Login" deste mesmo Controller (LoginController).
                   após um cadastro bem-sucedido, redirecionará à página de login.*/
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Produto");
             }
 
             /* Se o ModelState não for válido (houver erros de validação):
